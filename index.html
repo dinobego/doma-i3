@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Movie info</title>
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"/>
+</head>
+<body>
+    <div class="containet">
+        <h1 class="text-center mt-5"><i class="fa fa-film"></i>The Open Movie DataBase</h1>
+        <form id="movieForm" autocomplete="off">
+            <div class="form-group">
+                <h4 class=" text-center" id="1">Svi podaci o Vašim omiljenim filmovima i serijama na jednom mjestu!</h4>
+                <input  type="text" id="movie" placeholder="Unesite kriterijum pretrage..." >
+                <select class=" form-control-sm">
+                    <option>Filmovi</option>
+                    <option>Serije</option>
+                  </select>
+                  <input type="text" id="movie" placeholder="Godina">
+                </div>
+        
+        	<div class="form-group">
+                <button class="preetraga"><i class="fa fa-search"></i>
+                    Pretraga
+                </button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <div class="row-mt-3">
+  
+  
+
+        <table class="tabela">
+          <tbody>
+            
+            <tr>
+              
+              <td>Naslov:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Godina:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Objavljeno:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Trajanje:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Reziser:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Glumci:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Radnja:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Broj sezona:</td>
+              <td><hr></td>
+            </tr>
+            <tr>
+              <td>Ocjena gledalac: </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="prvaaa">
+                <ul>
+                  <li>Izvor 1:    </li>
+                  <li>Izvor 2:    </li>
+                  <li>Izvor 3:    </li>
+                 </ul>
+              </td>
+              <td class="drugaaa">
+                
+                  <li>Ocjena1</li>
+                  <li>Ocjena2</li>
+                  <li>Ocjena3</li>
+                 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+          
+      </div>
+      
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+var apikey = "e8599307"
+
+$("#movieForm").submit(function(event){
+event.preventDefault()
+
+var movie = $("#movie").val()
+var result = ""
+var url = "http://www.omdbapi.com/?apikey="+apikey
+$.ajax({
+    method: 'GET',
+    url: url+"&t="+movie,
+    success:function(data){
+        console.log(data)
+        
+        result = `
+            
+            <img style="float:left" class="img-thumnail" width="200" height="200" src="${data.Poster}"/>
+             <h2 class="nas">${data.Title}</h2> 
+             <h2 class="god">${data.Year}</h2> 
+              <h2 class="obj">${data.Released}</h2> 
+             <h2 class="tra">${data.Runtime}</h2>  
+              <h2 class="rez">${data.Director}</h2>  
+             <h2 class="glumac">${data.Actors}</h2>  
+              <h2 class="rad">${data.Genre}</h2>  
+              <h2 class="sez">${data.totalSeasons}</h2>
+              <h2 class="sour">${data.Ratings[0].Source}</h2>
+              <h2 class="sou2">${data.Ratings[1].Source}</h2>
+              <h2 class="sou3">${data.Ratings[2].Source}</h2>
+              <h2 class="sou4">${data.Ratings[0].Value}</h2>
+              <h2 class="sou5">${data.Ratings[1].Value}</h2>
+              <h2 class="sou6">${data.Ratings[2].Value}</h2>
+                                
+          
+            `;
+
+            $("#result").html(result);
+            
+    }
+})
+})
+    })
+  
+</script>
+
+
+
+</html>
